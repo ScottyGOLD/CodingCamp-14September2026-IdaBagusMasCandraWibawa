@@ -198,6 +198,13 @@ function formatMoney(amount) {
   return "$" + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function getCategoryColor(category) {
+  const categoryIndex = categories.indexOf(category);
+  return CHART_COLORS[
+    (categoryIndex >= 0 ? categoryIndex : category.length) % CHART_COLORS.length
+  ];
+}
+
 // ── Render ────────────────────────────────────
 function render() {
   updateBalance();
@@ -227,11 +234,12 @@ function renderTransactions() {
   filtered.forEach((t) => {
     const item = document.createElement("div");
     item.className = "transac-item";
+    const categoryColor = getCategoryColor(t.category);
     item.innerHTML = `
-      <span class="transac-type-dot" aria-hidden="true"></span>
+      <span class="transac-type-dot" style="--category-color: ${categoryColor}" aria-hidden="true"></span>
       <span class="transac-name" title="${t.name}">${t.name}</span>
       <span class="transac-amount">−${formatMoney(t.amount)}</span>
-      <span class="transac-category">${t.category}</span>
+      <span class="transac-category" style="--category-color: ${categoryColor}">${t.category}</span>
       <button class="transac-delete" aria-label="Delete ${t.name}">✕</button>
     `;
     item
@@ -275,9 +283,9 @@ function renderChart() {
     "#fff";
 
   let startAngle = -Math.PI / 2;
-  entries.forEach(([, value], i) => {
+  entries.forEach(([category, value]) => {
     const slice = (value / grandTotal) * 2 * Math.PI;
-    const color = CHART_COLORS[i % CHART_COLORS.length];
+    const color = getCategoryColor(category);
 
     ctx.beginPath();
     ctx.moveTo(cx, cy);
@@ -294,9 +302,9 @@ function renderChart() {
   });
 
   chartLegend.innerHTML = "";
-  entries.forEach(([cat, value], i) => {
+  entries.forEach(([cat, value]) => {
     const pct = ((value / grandTotal) * 100).toFixed(1);
-    const color = CHART_COLORS[i % CHART_COLORS.length];
+    const color = getCategoryColor(cat);
     const li = document.createElement("li");
     li.className = "legend-item";
     li.innerHTML = `
