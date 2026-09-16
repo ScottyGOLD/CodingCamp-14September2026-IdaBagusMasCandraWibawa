@@ -1,80 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense & Budget</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ── Header ── -->
     <header>
-        <h3>Expense & Budget Visualizer</h3>
-        <button id="btn-moon"><img id="icon-moon" src="https://img.icons8.com/?size=100&id=648&format=png&color=000000" alt="Moon"></button>
-        <button id="btn-sun"><img id="icon-sun" src="https://img.icons8.com/?size=100&id=26031&format=png&color=000000" alt="Sun"></button>
+      <h3>Expense &amp; Budget</h3>
+      <button id="btn-sun" aria-label="Switch to light mode">
+        <img
+          id="icon-sun"
+          src="https://img.icons8.com/?size=100&id=648&format=png&color=000000"
+          alt="Sun"
+        />
+      </button>
+      <button id="btn-moon" aria-label="Switch to dark mode">
+        <img
+          id="icon-moon"
+          src="https://img.icons8.com/?size=100&id=26031&format=png&color=000000"
+          alt="Moon"
+        />
+      </button>
     </header>
 
+    <!-- ── Balance ── -->
     <section class="balance">
-        <h3>Total balance</h3>
-        <h1>$0.00</h1>
+      <p class="balance-label">Total Spending</p>
+      <h1 id="balance-display">$0.00</h1>
     </section>
 
+    <!-- ── Add Transaction ── -->
     <section class="forms">
-        <h3>Add Transaction</h3>
-
-        <form method="post">
-        <div class="item-name">
-        <label>Item Name:</label>
-        <input type="text" placeholder="masukan nama Item..."></input>
+      <h3>Add Transaction</h3>
+      <form id="transaction-form">
+        <div class="field">
+          <label for="input-name">Item Name</label>
+          <input
+            id="input-name"
+            type="text"
+            placeholder="e.g. Lunch, Coffee..."
+            autocomplete="off"
+            required
+          />
         </div>
 
-
-        <div class="amount">
-        <label>Amount:</label>
-        <input type="text" placeholder="masukan harga..."></input>
+        <div class="field">
+          <label for="input-amount">Amount ($)</label>
+          <input
+            id="input-amount"
+            type="number"
+            placeholder="0.00"
+            min="0.01"
+            step="0.01"
+            required
+          />
         </div>
 
-        <div class="category">
-        <label>Category:</label>
-        <select>
-            <option></option>
+        <div class="field">
+          <label for="input-category">Category</label>
+          <select id="input-category" required>
+            <option value="" disabled selected>Select category</option>
             <option>Food</option>
-            <option>Travel</option>
+            <option>Transport</option>
             <option>Fun</option>
-        </select>
+          </select>
         </div>
 
-        <div class="newcategory">
-        <label>Add Category:</label>
-        <input type="text" placeholder="masukan kategori baru..."></input>
+        <div class="field">
+          <label for="input-new-category">New Category (optional)</label>
+          <input
+            id="input-new-category"
+            type="text"
+            placeholder="Add a custom category..."
+          />
         </div>
 
-        <button type="submit">
-            Add Transaction
-        </button>
-        </form>
+        <button type="submit" class="btn-submit">Add Transaction</button>
+      </form>
     </section>
 
-
+    <!-- ── Transaction History ── -->
     <section class="transac-list">
-        <h3>Transaction</h3>
-
-        <select>
-            <option>All</option>
-            <option>Fun</option>
+      <div class="transac-list-header">
+        <h3>History</h3>
+        <select id="filter-category" aria-label="Filter by category">
+          <option value="all">All</option>
         </select>
-
-        <div class="transac-item">
-            <p>Beli Maenan</p>
-            <p>$50.00</p>
-            <p>Fun</p>
-        <button>Delete</button>
-        </div>
+      </div>
+      <div id="transaction-container">
+        <!-- items injected by JS -->
+      </div>
+      <p id="empty-state" class="empty-state">
+        No transactions yet. Add one above!
+      </p>
     </section>
 
-
+    <!-- ── Spending Chart ── -->
     <section class="spending">
-        <h3>Spending by Category</h3>
+      <h3>Spending by Category</h3>
+      <div id="chart-wrap">
+        <canvas
+          id="pie-chart"
+          width="220"
+          height="220"
+          aria-label="Spending pie chart"
+        ></canvas>
+        <ul id="chart-legend" aria-label="Chart legend"></ul>
+      </div>
+      <p id="chart-empty" class="empty-state">No expense data to display.</p>
     </section>
-<script src="js/script.js"></script>
-</body>
+
+    <script src="js/script.js"></script>
+  </body>
 </html>
