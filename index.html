@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h3>Expense & Budget Visualizer</h3>
+        <button id="btn-moon"><img id="icon-moon" src="https://img.icons8.com/?size=100&id=648&format=png&color=000000" alt="Moon"></button>
+        <button id="btn-sun"><img id="icon-sun" src="https://img.icons8.com/?size=100&id=26031&format=png&color=000000" alt="Sun"></button>
+    </header>
+
+    <section class="balance">
+        <h3>Total balance</h3>
+        <h1>$0.00</h1>
+    </section>
+
+    <section class="forms">
+        <h3>Add Transaction</h3>
+
+        <form method="post">
+        <div class="item-name">
+        <label>Item Name:</label>
+        <input type="text" placeholder="masukan nama Item..."></input>
+        </div>
+
+
+        <div class="amount">
+        <label>Amount:</label>
+        <input type="text" placeholder="masukan harga..."></input>
+        </div>
+
+        <div class="category">
+        <label>Category:</label>
+        <select>
+            <option></option>
+            <option>Food</option>
+            <option>Travel</option>
+            <option>Fun</option>
+        </select>
+        </div>
+
+        <div class="newcategory">
+        <label>Add Category:</label>
+        <input type="text" placeholder="masukan kategori baru..."></input>
+        </div>
+
+        <button type="submit">
+            Add Transaction
+        </button>
+        </form>
+    </section>
+
+
+    <section class="transac-list">
+        <h3>Transaction</h3>
+
+        <select>
+            <option>All</option>
+            <option>Fun</option>
+        </select>
+
+        <div class="transac-item">
+            <p>Beli Maenan</p>
+            <p>$50.00</p>
+            <p>Fun</p>
+        <button>Delete</button>
+        </div>
+    </section>
+
+
+    <section class="spending">
+        <h3>Spending by Category</h3>
+    </section>
+<script src="js/script.js"></script>
+</body>
+</html>
